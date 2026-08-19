@@ -3,7 +3,7 @@ name: Deploy Expo Web
 on:
   push:
     branches:
-      - main
+      - ground-up
 
   workflow_dispatch:
 
