@@ -3,3 +3,4 @@
   - page with additional information and ability to download pamphlet
 - testitmonials re-center
 - Get in touch section email function to work (Far Future)
+  - online business card/receipt when using contact us feature (lack of database)
