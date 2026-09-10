@@ -9,6 +9,7 @@ import { useState, useEffect, useRef } from "react";
 import { Phone, Mail, Globe, MapPin, Star, ChevronDown, Menu, X, Home as HomeIcon, ArrowRight, Quote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { Link } from "wouter";
 
 // CDN Asset URLs
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663451840054/Kj7uVMqMvLFGy8XLMv7mcP/hero_bg-cBD34Nis7q3miMCbhDVeFe.webp";
@@ -22,6 +23,8 @@ const SERVICE_BUYERS = "https://d2xsxph8kpxj0f.cloudfront.net/310519663451840054
 // Temporary information image —> replace this with the final client-provided image
 const SERVICE_INFO_IMAGE = SERVICE_BUYERS;
 
+
+
 // ─── Navbar ───────────────────────────────────────────────────────────────────
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -33,10 +36,12 @@ function Navbar() {
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
+  
+
   const navLinks = [
     { label: "About", href: "#about" },
     { label: "Services", href: "#services" },
-    { label: "Listings", href: "#listings" },
+    // { label: "Listings", href: "#listings" },
     { label: "Testimonials", href: "#testimonials" },
     { label: "Financial Planning", href: "#mortgage-calculator" },
     { label: "Contact", href: "#contact" },
@@ -44,6 +49,7 @@ function Navbar() {
 
   const externalLinks = [
     { label: "Mortgage calculator", href: "https://www.realtor.ca/calculator#v=payment", external: true },
+    { label: "EXIT team", href: "https://exitrealtyseaway.com/our-agents"}
   ];
 
   const scrollTo = (id: string) => {
@@ -209,7 +215,7 @@ function HeroSection() {
               <ArrowRight size={18} />
             </a>
 
-            <a
+            {/* <a
               href={SERVICE_INFO_IMAGE}
               target="_blank"
               rel="noopener noreferrer"
@@ -217,7 +223,10 @@ function HeroSection() {
             >
               Selling Your Home
               <ArrowRight size={18} />
-            </a>
+            </a> */}
+            <Link to="/Sellers" className="border-2 border-white/70 hover:border-white text-white font-body font-semibold px-8 py-4 rounded transition-all duration-200 hover:bg-white/10 flex items-center gap-2">
+              Selling Your Home <ArrowRight size={18} />
+            </Link>
           </div>
           {/* Quick stats
           <div className="flex flex-wrap gap-8 mt-12 animate-fade-up animate-delay-400">
@@ -245,6 +254,20 @@ function HeroSection() {
 
 // ─── Brand Story / About Section ──────────────────────────────────────────────
 function AboutSection() {
+  useEffect(() => {
+    if (window.location.hash === "#about") {
+      const aboutSection = document.querySelector("#about");
+
+      if (aboutSection) {
+        setTimeout(() => {
+          aboutSection.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }, 100);
+      }
+    }
+  }, []);
   return (
     <section id="about" className="py-24 bg-[oklch(0.97_0.012_80)]">
       <div className="container">
@@ -356,6 +379,20 @@ function AboutSection() {
 
 // ─── Services Section ─────────────────────────────────────────────────────────
 function ServicesSection() {
+  useEffect(() => {
+    if (window.location.hash === "#services") {
+      const servicesSection = document.querySelector("#services");
+
+      if (servicesSection) {
+        setTimeout(() => {
+          servicesSection.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }, 100);
+      }
+    }
+  }, []);
   const services = [
     {
       title: "Buying a Home",
@@ -670,6 +707,20 @@ function ExitTeamSection() {
 }
 // ─── Social Proof / Testimonials ──────────────────────────────────────────────
 function TestimonialsSection() {
+  useEffect(() => {
+    if (window.location.hash === "#testimonials") {
+      const testimonialsSection = document.querySelector("#testimonials");
+
+      if (testimonialsSection) {
+        setTimeout(() => {
+          testimonialsSection.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }, 100);
+      }
+    }
+  }, []);
   const testimonials = [
 
     {
@@ -735,7 +786,7 @@ function TestimonialsSection() {
         </div>
 
         {/* Testimonial grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
           {testimonials.map((t, i) => (
             <div
               key={t.name}
@@ -975,6 +1026,20 @@ function TestimonialsSection() {
 // ─── Mortgage Calculator Section ─────────────────────────────────────────────
 
 function MortgageCalculator() {
+  useEffect(() => {
+    if (window.location.hash === "#mortgage-calculator") {
+      const calculatorSection = document.querySelector("#mortgage-calculator");
+
+      if (calculatorSection) {
+        setTimeout(() => {
+          calculatorSection.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }, 100);
+      }
+    }
+  }, []);
   const [homePrice, setHomePrice] = useState(500000);
   const [downPayment, setDownPayment] = useState(100000);
   const [interestRate, setInterestRate] = useState(4.5);
@@ -1452,6 +1517,20 @@ function MortgageCalculator() {
 }
 // ─── Contact Form Section ─────────────────────────────────────────────────────
 function ContactSection() {
+  useEffect(() => {
+    if (window.location.hash === "#contact") {
+      const contactSection = document.querySelector("#contact");
+
+      if (contactSection) {
+        setTimeout(() => {
+          contactSection.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }, 100);
+      }
+    }
+  }, []);
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
