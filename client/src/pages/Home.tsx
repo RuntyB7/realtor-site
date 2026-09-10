@@ -6,18 +6,24 @@
  */
 
 import { useState, useEffect, useRef } from "react";
-import { Phone, Mail, Globe, MapPin, Star, ChevronDown, Menu, X, Home as HomeIcon, Trees, Building2, Search, ArrowRight, Quote } from "lucide-react";
+import { Phone, Mail, Globe, MapPin, Star, ChevronDown, Menu, X, Home as HomeIcon, ArrowRight, Quote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { Link } from "wouter";
 
 // CDN Asset URLs
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663451840054/Kj7uVMqMvLFGy8XLMv7mcP/hero_bg-cBD34Nis7q3miMCbhDVeFe.webp";
 const YULIYA_PHOTO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663451840054/Kj7uVMqMvLFGy8XLMv7mcP/yuliya_professional_photo_4624abc6.png";
 const SERVICE_BUYERS = "https://d2xsxph8kpxj0f.cloudfront.net/310519663451840054/Kj7uVMqMvLFGy8XLMv7mcP/service_buyers-jWc5TD6iUe9oMCCvCNffQt.webp";
-const SERVICE_SELLERS = "https://d2xsxph8kpxj0f.cloudfront.net/310519663451840054/Kj7uVMqMvLFGy8XLMv7mcP/service_sellers-eFsCU3yFM5ADmRwuKp47zK.webp";
-const SERVICE_LAND = "https://d2xsxph8kpxj0f.cloudfront.net/310519663451840054/Kj7uVMqMvLFGy8XLMv7mcP/service_land-STCntRTWH7gZqarLu39FA7.webp";
-const LISTING_HOUSE1 = "https://d2xsxph8kpxj0f.cloudfront.net/310519663451840054/Kj7uVMqMvLFGy8XLMv7mcP/listing_house1_b02cf5c5.jpeg";
-const LISTING_HOUSE2 = "https://d2xsxph8kpxj0f.cloudfront.net/310519663451840054/Kj7uVMqMvLFGy8XLMv7mcP/listing_house2_7f525c0f.jpeg";
+// const SERVICE_SELLERS = "https://d2xsxph8kpxj0f.cloudfront.net/310519663451840054/Kj7uVMqMvLFGy8XLMv7mcP/service_sellers-eFsCU3yFM5ADmRwuKp47zK.webp";
+// const SERVICE_LAND = "https://d2xsxph8kpxj0f.cloudfront.net/310519663451840054/Kj7uVMqMvLFGy8XLMv7mcP/service_land-STCntRTWH7gZqarLu39FA7.webp";
+// const LISTING_HOUSE1 = "https://d2xsxph8kpxj0f.cloudfront.net/310519663451840054/Kj7uVMqMvLFGy8XLMv7mcP/listing_house1_b02cf5c5.jpeg";
+// const LISTING_HOUSE2 = "https://d2xsxph8kpxj0f.cloudfront.net/310519663451840054/Kj7uVMqMvLFGy8XLMv7mcP/listing_house2_7f525c0f.jpeg";
+
+// Temporary information image —> replace this with the final client-provided image
+const SERVICE_INFO_IMAGE = SERVICE_BUYERS;
+
+
 
 // ─── Navbar ───────────────────────────────────────────────────────────────────
 function Navbar() {
@@ -30,10 +36,12 @@ function Navbar() {
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
+  
+
   const navLinks = [
     { label: "About", href: "#about" },
     { label: "Services", href: "#services" },
-    { label: "Listings", href: "#listings" },
+    // { label: "Listings", href: "#listings" },
     { label: "Testimonials", href: "#testimonials" },
     { label: "Financial Planning", href: "#mortgage-calculator" },
     { label: "Contact", href: "#contact" },
@@ -41,6 +49,7 @@ function Navbar() {
 
   const externalLinks = [
     { label: "Mortgage calculator", href: "https://www.realtor.ca/calculator#v=payment", external: true },
+    { label: "EXIT team", href: "https://exitrealtyseaway.com/our-agents"}
   ];
 
   const scrollTo = (id: string) => {
@@ -196,22 +205,30 @@ function HeroSection() {
 
           {/* CTAs */}
           <div className="flex flex-wrap gap-4 animate-fade-up animate-delay-300">
-            <button
-              onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
+            <a
+              href={SERVICE_INFO_IMAGE}
+              target="_blank"
+              rel="noopener noreferrer"
               className="bg-[oklch(0.42_0.1_155)] hover:bg-[oklch(0.36_0.1_155)] text-white font-body font-semibold px-8 py-4 rounded transition-all duration-200 hover:shadow-xl flex items-center gap-2"
             >
-              Get Free Home Evaluation
+              Buying a Home
               <ArrowRight size={18} />
-            </button>
-            <button
-              onClick={() => document.querySelector("#listings")?.scrollIntoView({ behavior: "smooth" })}
+            </a>
+
+            {/* <a
+              href={SERVICE_INFO_IMAGE}
+              target="_blank"
+              rel="noopener noreferrer"
               className="border-2 border-white/70 hover:border-white text-white font-body font-semibold px-8 py-4 rounded transition-all duration-200 hover:bg-white/10 flex items-center gap-2"
             >
-              View Listings
-            </button>
+              Selling Your Home
+              <ArrowRight size={18} />
+            </a> */}
+            <Link to="/Sellers" className="border-2 border-white/70 hover:border-white text-white font-body font-semibold px-8 py-4 rounded transition-all duration-200 hover:bg-white/10 flex items-center gap-2">
+              Selling Your Home <ArrowRight size={18} />
+            </Link>
           </div>
-
-          {/* Quick stats */}
+          {/* Quick stats
           <div className="flex flex-wrap gap-8 mt-12 animate-fade-up animate-delay-400">
             {[
               { value: "9+", label: "Active Listings" },
@@ -223,7 +240,7 @@ function HeroSection() {
                 <div className="font-body text-sm text-white/70 mt-0.5">{stat.label}</div>
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -237,6 +254,20 @@ function HeroSection() {
 
 // ─── Brand Story / About Section ──────────────────────────────────────────────
 function AboutSection() {
+  useEffect(() => {
+    if (window.location.hash === "#about") {
+      const aboutSection = document.querySelector("#about");
+
+      if (aboutSection) {
+        setTimeout(() => {
+          aboutSection.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }, 100);
+      }
+    }
+  }, []);
   return (
     <section id="about" className="py-24 bg-[oklch(0.97_0.012_80)]">
       <div className="container">
@@ -348,114 +379,103 @@ function AboutSection() {
 
 // ─── Services Section ─────────────────────────────────────────────────────────
 function ServicesSection() {
+  useEffect(() => {
+    if (window.location.hash === "#services") {
+      const servicesSection = document.querySelector("#services");
+
+      if (servicesSection) {
+        setTimeout(() => {
+          servicesSection.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }, 100);
+      }
+    }
+  }, []);
   const services = [
     {
       title: "Buying a Home",
-      subtitle: "Find Your Perfect Match",
       description:
         "Whether you're a first-time buyer or upgrading your lifestyle, I guide you through every step — from search to keys in hand. I'll help you navigate the market with confidence and find a home that truly fits your life.",
-      image: SERVICE_BUYERS,
-      icon: <HomeIcon size={24} />,
-      features: ["MLS® Property Search", "Neighbourhood Guidance", "Offer Negotiation", "Closing Support"],
+      features: [
+        "MLS® Property Search",
+        "Neighbourhood Guidance",
+        "Offer Negotiation",
+        "Closing Support",
+      ],
     },
     {
-      title: "Selling Your Home",
-      subtitle: "Maximize Your Return",
+      title: "Selling your Home",
       description:
-        "With my background in home design and staging, I help you present your property at its absolute best. From pricing strategy to marketing and negotiation, I work to get you the best possible outcome.",
-      image: SERVICE_SELLERS,
-      icon: <Building2 size={24} />,
-      features: ["Free Home Evaluation", "Professional Staging Tips", "Strategic Pricing", "Full Marketing Package"],
+        "From preparing your property to marketing and negotiating, I'll help you present your home in its best light. With my background in home design and staging, I help you present your property at its absolute best. From pricing strategy to marketing and negotiation, I work to get you the best possible outcome.",
+      features: [
+        "Free Home Evaluation",
+        "Professional Staging Tips",
+        "Strategic Pricing",
+        "Full Marketing Package",
+      ],
     },
     {
-      title: "City Living in Cornwall",
-      subtitle: "Urban Convenience",
+      title: "Relocation",
       description:
-        "Discover the vibrant lifestyle of downtown Cornwall and urban neighbourhoods. From modern condos to family homes near schools and amenities, I help you find the perfect urban property that balances convenience and community.",
-      image: SERVICE_SELLERS,
-      icon: <Building2 size={24} />,
-      features: ["Downtown Condos", "Family Homes", "Walk-to-Amenities", "School Proximity"],
-    },
-    {
-      title: "Rural & Land Properties",
-      subtitle: "Build Your Dream",
-      description:
-        "Specializing in Stormont, Dundas & Glengarry (SD&G) and Eastern Ontario's countryside, I connect buyers and sellers of rural parcels, hobby farms, and development land. If you dream of country living just minutes from the city, I know exactly where to look.",
-      image: SERVICE_LAND,
-      icon: <Trees size={24} />,
-      features: ["Land Parcels", "Hobby Farms", "Rural Retreats", "Development Lots"],
+        "Moving to Cornwall or the surrounding Eastern Ontario area? I'll help you get familiar with the communities, explore your options, and find a home that fits both your needs and your lifestyle.",
+      features: [
+        "Community Guidance",
+        "Property Search",
+        "Local Area Information",
+        "Coordination & Support",
+      ],
     },
   ];
 
   return (
-    <section id="services" className="py-24 bg-[oklch(0.22_0.04_240)]">
+    <section
+      id="services"
+      className="py-20 md:py-24 bg-[oklch(0.97_0.012_80)]"
+    >
       <div className="container">
-        {/* Section header */}
-        <div className="text-center mb-16">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="h-px w-10 bg-[oklch(0.72_0.12_75)]" />
-            <span className="font-body text-sm font-semibold tracking-[0.2em] uppercase text-[oklch(0.72_0.12_75)]">
-              How I Can Help
-            </span>
-            <div className="h-px w-10 bg-[oklch(0.72_0.12_75)]" />
-          </div>
-          <h2 className="font-display text-4xl md:text-5xl font-semibold text-white leading-tight">
-            Services Tailored<br />
-            <em className="italic text-[oklch(0.72_0.12_75)]">to Your Goals</em>
+        {/* Section Header */}
+        <div className="text-center mb-12 md:mb-14">
+          <h2 className="font-display text-4xl md:text-5xl font-semibold text-[oklch(0.22_0.04_240)]">
+            How I Can Help
           </h2>
+
+          <p className="font-body text-base md:text-lg text-[oklch(0.42_0.02_80)] mt-4 max-w-2xl mx-auto">
+            Whether you're buying, selling, or making a move, I'm here to help
+            you navigate the process.
+          </p>
         </div>
 
-        {/* Service cards */}
-        <div className="grid lg:grid-cols-2 xl:grid-cols-4 gap-8">
-          {services.map((service, i) => (
+        {/* Service Cards */}
+        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-5 lg:gap-6">
+          {services.map((service) => (
             <div
               key={service.title}
-              className="group bg-[oklch(0.28_0.04_240)] rounded-2xl overflow-hidden border border-[oklch(0.35_0.04_240)] hover:border-[oklch(0.42_0.1_155/0.5)] transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
-              style={{ animationDelay: `${i * 0.1}s` }}
+              className="bg-white border border-[oklch(0.88_0.015_80)] p-6 md:p-7 lg:p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
             >
-              {/* Image */}
-              <div className="relative h-52 overflow-hidden">
-                <img
-                  src={service.image}
-                  alt={service.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[oklch(0.28_0.04_240)] to-transparent" />
-                {/* Icon badge */}
-                <div className="absolute bottom-4 left-4 bg-[oklch(0.42_0.1_155)] text-white p-2.5 rounded-xl">
-                  {service.icon}
-                </div>
-              </div>
+              {/* Title */}
+              <h3 className="font-display text-2xl md:text-[1.65rem] font-semibold text-[oklch(0.22_0.04_240)] mb-4">
+                {service.title}
+              </h3>
 
-              {/* Content */}
-              <div className="p-6">
-                <p className="font-body text-xs font-semibold tracking-[0.15em] uppercase text-[oklch(0.72_0.12_75)] mb-1">
-                  {service.subtitle}
-                </p>
-                <h3 className="font-display text-2xl font-semibold text-white mb-3">
-                  {service.title}
-                </h3>
-                <p className="font-body text-sm text-white/65 leading-relaxed mb-5">
-                  {service.description}
-                </p>
+              {/* Description */}
+              <p className="font-body text-sm md:text-[0.95rem] text-[oklch(0.40_0.02_80)] leading-relaxed mb-6">
+                {service.description}
+              </p>
 
-                {/* Feature list */}
-                <ul className="space-y-2">
-                  {service.features.map((f) => (
-                    <li key={f} className="flex items-center gap-2 font-body text-sm text-white/80">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[oklch(0.42_0.1_155)]" />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-
-                <button
-                  onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
-                  className="mt-6 w-full border border-[oklch(0.42_0.1_155)] text-[oklch(0.52_0.09_155)] hover:bg-[oklch(0.42_0.1_155)] hover:text-white font-body text-sm font-semibold py-2.5 rounded transition-all duration-200 flex items-center justify-center gap-2"
-                >
-                  Learn More <ArrowRight size={16} />
-                </button>
-              </div>
+              {/* Feature List */}
+              <ul className="space-y-2.5">
+                {service.features.map((feature) => (
+                  <li
+                    key={feature}
+                    className="flex items-start gap-3 font-body text-sm text-[oklch(0.32_0.02_80)]"
+                  >
+                    <span className="mt-2 w-1.5 h-1.5 shrink-0 rounded-full bg-[oklch(0.42_0.1_155)]" />
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>
@@ -464,178 +484,243 @@ function ServicesSection() {
   );
 }
 
-// ─── Featured Listings Section ────────────────────────────────────────────────
-function ListingsSection() {
-  const listings = [
-    {
-      status: "ACTIVE",
-      type: "SINGLE FAMILY",
-      price: "$365,000",
-      address: "5 Adolphus Street",
-      city: "Cornwall, ON K6H3R9",
-      mls: "X12879212",
-      beds: 3,
-      baths: 2,
-      sqft: null,
-      highlight: "Charming 3-bed home in a desirable Cornwall neighbourhood — move-in ready with great curb appeal.",
-      color: "oklch(0.42_0.1_155)",
-      image: LISTING_HOUSE1,
-    },
-    {
-      status: "ACTIVE",
-      type: "SINGLE FAMILY",
-      price: "$624,850",
-      address: "16825 County Rd 15 Road",
-      city: "Moose Creek, ON K0C1W0",
-      mls: "X12808980",
-      beds: 3,
-      baths: 2,
-      sqft: "1,521",
-      highlight: "Spacious country home on 1,521 sq ft — peaceful rural setting just minutes from Cornwall.",
-      color: "oklch(0.52_0.09_155)",
-      image: LISTING_HOUSE2,
-    },
-    {
-      status: "ACTIVE",
-      type: "CONDO / TOWNHOME",
-      price: "$399,000",
-      address: "341 Water W Street, Unit 201",
-      city: "Cornwall, ON K6J1A5",
-      mls: "X12462107",
-      beds: 2,
-      baths: 2,
-      sqft: null,
-      highlight: "Stunning waterfront condo in the heart of Cornwall — move-in ready with modern finishes.",
-      color: "oklch(0.72_0.12_75)",
-      image: null,
-    },
-    {
-      status: "ACTIVE",
-      type: "LOTS / LAND",
-      price: "$69,000",
-      address: "Third W Street",
-      city: "Cornwall, ON K6J2P5",
-      mls: "X12797378",
-      beds: null,
-      baths: null,
-      sqft: null,
-      highlight: "Prime land opportunity in Cornwall — ideal for development or investment.",
-      color: "oklch(0.62_0.1_75)",
-      image: null,
-    },
-  ];
+// // ─── Featured Listings Section ────────────────────────────────────────────────
+// function ListingsSection() {
+//   const listings = [
+//     {
+//       status: "ACTIVE",
+//       type: "SINGLE FAMILY",
+//       price: "$365,000",
+//       address: "5 Adolphus Street",
+//       city: "Cornwall, ON K6H3R9",
+//       mls: "X12879212",
+//       beds: 3,
+//       baths: 2,
+//       sqft: null,
+//       highlight: "Charming 3-bed home in a desirable Cornwall neighbourhood — move-in ready with great curb appeal.",
+//       color: "oklch(0.42_0.1_155)",
+//       image: LISTING_HOUSE1,
+//     },
+//     {
+//       status: "ACTIVE",
+//       type: "SINGLE FAMILY",
+//       price: "$624,850",
+//       address: "16825 County Rd 15 Road",
+//       city: "Moose Creek, ON K0C1W0",
+//       mls: "X12808980",
+//       beds: 3,
+//       baths: 2,
+//       sqft: "1,521",
+//       highlight: "Spacious country home on 1,521 sq ft — peaceful rural setting just minutes from Cornwall.",
+//       color: "oklch(0.52_0.09_155)",
+//       image: LISTING_HOUSE2,
+//     },
+//     {
+//       status: "ACTIVE",
+//       type: "CONDO / TOWNHOME",
+//       price: "$399,000",
+//       address: "341 Water W Street, Unit 201",
+//       city: "Cornwall, ON K6J1A5",
+//       mls: "X12462107",
+//       beds: 2,
+//       baths: 2,
+//       sqft: null,
+//       highlight: "Stunning waterfront condo in the heart of Cornwall — move-in ready with modern finishes.",
+//       color: "oklch(0.72_0.12_75)",
+//       image: null,
+//     },
+//     {
+//       status: "ACTIVE",
+//       type: "LOTS / LAND",
+//       price: "$69,000",
+//       address: "Third W Street",
+//       city: "Cornwall, ON K6J2P5",
+//       mls: "X12797378",
+//       beds: null,
+//       baths: null,
+//       sqft: null,
+//       highlight: "Prime land opportunity in Cornwall — ideal for development or investment.",
+//       color: "oklch(0.62_0.1_75)",
+//       image: null,
+//     },
+//   ];
 
+//   return (
+//     <section id="listings" className="py-24 bg-[oklch(0.97_0.012_80)]">
+//       <div className="container">
+//         {/* Header */}
+//         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+//           <div>
+//             <div className="flex items-center gap-3 mb-3">
+//               <div className="h-px w-10 bg-[oklch(0.72_0.12_75)]" />
+//               <span className="font-body text-sm font-semibold tracking-[0.2em] uppercase text-[oklch(0.42_0.1_155)]">
+//                 Current Listings
+//               </span>
+//             </div>
+//             <h2 className="font-display text-4xl md:text-5xl font-semibold text-[oklch(0.22_0.04_240)] leading-tight">
+//               Featured Properties<br />
+//               <em className="italic">in Eastern Ontario</em>
+//             </h2>
+//           </div>
+//           <a
+//             href="https://findhometown.ca"
+//             target="_blank"
+//             rel="noopener noreferrer"
+//             className="flex items-center gap-2 font-body text-sm font-semibold text-[oklch(0.42_0.1_155)] hover:text-[oklch(0.36_0.1_155)] transition-colors whitespace-nowrap"
+//           >
+//             View All Listings <ArrowRight size={16} />
+//           </a>
+//         </div>
+
+//         {/* Listings grid */}
+//         <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+//           {listings.map((listing) => (
+//             <div key={listing.mls} className="warm-card rounded-2xl overflow-hidden">
+//               {/* Property image or status bar */}
+//               {listing.image ? (
+//                 <div className="relative h-44 overflow-hidden">
+//                   <img src={listing.image} alt={listing.address} className="w-full h-full object-cover" />
+//                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+//                   <div className="absolute top-3 left-3 flex gap-2">
+//                     <span className="font-body text-xs font-bold tracking-widest uppercase px-2.5 py-1 rounded-full bg-[oklch(0.42_0.1_155)] text-white">{listing.status}</span>
+//                     <span className="font-body text-xs font-semibold tracking-wide uppercase px-2.5 py-1 rounded-full bg-black/40 text-white">{listing.type}</span>
+//                   </div>
+//                 </div>
+//               ) : null}
+
+//               <div className="p-6">
+//                 {/* Status + Type (only shown when no image) */}
+//                 {!listing.image && (
+//                   <>
+//                     <div
+//                       className="h-1.5 -mx-6 -mt-6 mb-4"
+//                       style={{ background: listing.color }}
+//                     />
+//                     <div className="flex items-center justify-between mb-4">
+//                       <span
+//                         className="font-body text-xs font-bold tracking-widest uppercase px-2.5 py-1 rounded-full"
+//                         style={{
+//                           background: `color-mix(in oklch, ${listing.color} 12%, transparent)`,
+//                           color: listing.color,
+//                         }}
+//                       >
+//                         {listing.status}
+//                       </span>
+//                       <span className="font-body text-xs text-[oklch(0.55_0.015_60)] tracking-wide">
+//                         {listing.type}
+//                       </span>
+//                     </div>
+//                   </>
+//                 )}
+
+//                 {/* Price */}
+//                 <div className="font-display text-3xl font-bold text-[oklch(0.22_0.04_240)] mb-2">
+//                   {listing.price}
+//                 </div>
+
+//                 {/* Address */}
+//                 <div className="font-body text-sm font-semibold text-[oklch(0.22_0.04_240)] mb-0.5">
+//                   {listing.address}
+//                 </div>
+//                 <div className="font-body text-sm text-[oklch(0.55_0.015_60)] mb-4">
+//                   {listing.city}
+//                 </div>
+
+//                 {/* Highlight */}
+//                 <p className="font-body text-sm text-[oklch(0.45_0.02_240)] leading-relaxed mb-4 border-t border-[oklch(0.88_0.015_80)] pt-4">
+//                   {listing.highlight}
+//                 </p>
+
+//                 {/* Details row */}
+//                 <div className="flex items-center gap-3 text-[oklch(0.55_0.015_60)] text-xs font-body">
+//                   {listing.beds && <span>{listing.beds} bed</span>}
+//                   {listing.baths && <><span>·</span><span>{listing.baths} bath</span></>}
+//                   {listing.sqft && <span>{listing.sqft}</span>}
+//                   <span className="ml-auto">MLS® {listing.mls}</span>
+//                 </div>
+
+//                 <button
+//                   onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
+//                   className="mt-4 w-full bg-[oklch(0.22_0.04_240)] hover:bg-[oklch(0.3_0.05_240)] text-white font-body text-sm font-semibold py-2.5 rounded transition-all duration-200"
+//                 >
+//                   Inquire Now
+//                 </button>
+//               </div>
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+//     </section>
+//   );
+// }
+// ─── EXIT Team Section ────────────────────────────────────────────────────────
+function ExitTeamSection() {
   return (
-    <section id="listings" className="py-24 bg-[oklch(0.97_0.012_80)]">
+    <section className="py-16 md:py-20 bg-white">
       <div className="container">
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-          <div>
-            <div className="flex items-center gap-3 mb-3">
-              <div className="h-px w-10 bg-[oklch(0.72_0.12_75)]" />
-              <span className="font-body text-sm font-semibold tracking-[0.2em] uppercase text-[oklch(0.42_0.1_155)]">
-                Current Listings
-              </span>
-            </div>
-            <h2 className="font-display text-4xl md:text-5xl font-semibold text-[oklch(0.22_0.04_240)] leading-tight">
-              Featured Properties<br />
-              <em className="italic">in Eastern Ontario</em>
-            </h2>
-          </div>
-          <a
-            href="https://findhometown.ca"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 font-body text-sm font-semibold text-[oklch(0.42_0.1_155)] hover:text-[oklch(0.36_0.1_155)] transition-colors whitespace-nowrap"
-          >
-            View All Listings <ArrowRight size={16} />
-          </a>
-        </div>
+        <div className="relative overflow-hidden border border-[oklch(0.88_0.015_80)] bg-[oklch(0.97_0.012_80)] px-8 py-12 md:px-12 md:py-14">
+          {/* Decorative accent */}
+          <div className="absolute left-0 top-0 h-full w-1 bg-[oklch(0.42_0.1_155)]" />
 
-        {/* Listings grid */}
-        <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
-          {listings.map((listing) => (
-            <div key={listing.mls} className="warm-card rounded-2xl overflow-hidden">
-              {/* Property image or status bar */}
-              {listing.image ? (
-                <div className="relative h-44 overflow-hidden">
-                  <img src={listing.image} alt={listing.address} className="w-full h-full object-cover" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                  <div className="absolute top-3 left-3 flex gap-2">
-                    <span className="font-body text-xs font-bold tracking-widest uppercase px-2.5 py-1 rounded-full bg-[oklch(0.42_0.1_155)] text-white">{listing.status}</span>
-                    <span className="font-body text-xs font-semibold tracking-wide uppercase px-2.5 py-1 rounded-full bg-black/40 text-white">{listing.type}</span>
-                  </div>
-                </div>
-              ) : null}
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+            {/* Text */}
+            <div className="max-w-2xl">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="h-px w-8 bg-[oklch(0.72_0.12_75)]" />
 
-              <div className="p-6">
-                {/* Status + Type (only shown when no image) */}
-                {!listing.image && (
-                  <>
-                    <div
-                      className="h-1.5 -mx-6 -mt-6 mb-4"
-                      style={{ background: listing.color }}
-                    />
-                    <div className="flex items-center justify-between mb-4">
-                      <span
-                        className="font-body text-xs font-bold tracking-widest uppercase px-2.5 py-1 rounded-full"
-                        style={{
-                          background: `color-mix(in oklch, ${listing.color} 12%, transparent)`,
-                          color: listing.color,
-                        }}
-                      >
-                        {listing.status}
-                      </span>
-                      <span className="font-body text-xs text-[oklch(0.55_0.015_60)] tracking-wide">
-                        {listing.type}
-                      </span>
-                    </div>
-                  </>
-                )}
-
-                {/* Price */}
-                <div className="font-display text-3xl font-bold text-[oklch(0.22_0.04_240)] mb-2">
-                  {listing.price}
-                </div>
-
-                {/* Address */}
-                <div className="font-body text-sm font-semibold text-[oklch(0.22_0.04_240)] mb-0.5">
-                  {listing.address}
-                </div>
-                <div className="font-body text-sm text-[oklch(0.55_0.015_60)] mb-4">
-                  {listing.city}
-                </div>
-
-                {/* Highlight */}
-                <p className="font-body text-sm text-[oklch(0.45_0.02_240)] leading-relaxed mb-4 border-t border-[oklch(0.88_0.015_80)] pt-4">
-                  {listing.highlight}
-                </p>
-
-                {/* Details row */}
-                <div className="flex items-center gap-3 text-[oklch(0.55_0.015_60)] text-xs font-body">
-                  {listing.beds && <span>{listing.beds} bed</span>}
-                  {listing.baths && <><span>·</span><span>{listing.baths} bath</span></>}
-                  {listing.sqft && <span>{listing.sqft}</span>}
-                  <span className="ml-auto">MLS® {listing.mls}</span>
-                </div>
-
-                <button
-                  onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
-                  className="mt-4 w-full bg-[oklch(0.22_0.04_240)] hover:bg-[oklch(0.3_0.05_240)] text-white font-body text-sm font-semibold py-2.5 rounded transition-all duration-200"
-                >
-                  Inquire Now
-                </button>
+                <span className="font-body text-xs font-semibold tracking-[0.2em] uppercase text-[oklch(0.42_0.1_155)]">
+                  EXIT Realty Seaway
+                </span>
               </div>
+
+              <h2 className="font-display text-3xl md:text-4xl font-semibold text-[oklch(0.22_0.04_240)]">
+                Meet the EXIT Team
+              </h2>
+
+              <p className="font-body text-base text-[oklch(0.42_0.02_80)] leading-relaxed mt-3 max-w-xl">
+                Discover the people and professionals behind EXIT Realty
+                Seaway and learn more about the team serving Cornwall and
+                surrounding Eastern Ontario.
+              </p>
             </div>
-          ))}
+
+            {/* CTA */}
+            <div className="shrink-0">
+              <a
+                href="https://exitrealtyseaway.com/our-agents"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center justify-center gap-3 bg-[oklch(0.22_0.04_240)] hover:bg-[oklch(0.42_0.1_155)] text-white font-body font-semibold px-7 py-3.5 rounded transition-all duration-300 hover:shadow-lg"
+              >
+                Meet EXIT Team
+                <ArrowRight
+                  size={18}
+                  className="transition-transform duration-300 group-hover:translate-x-1"
+                />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   );
 }
-
 // ─── Social Proof / Testimonials ──────────────────────────────────────────────
 function TestimonialsSection() {
+  useEffect(() => {
+    if (window.location.hash === "#testimonials") {
+      const testimonialsSection = document.querySelector("#testimonials");
+
+      if (testimonialsSection) {
+        setTimeout(() => {
+          testimonialsSection.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }, 100);
+      }
+    }
+  }, []);
   const testimonials = [
 
     {
@@ -646,22 +731,22 @@ function TestimonialsSection() {
       type: "Buyer",
       source: "Google Review",
     },
-    {
-      name: "Andrei V.",
-      location: "St. Andrews West, ON",
-      text: "As a Russian-speaking family, we were so relieved to find a REALTOR® who could communicate with us in our language. Yuliya was patient, professional, and genuinely cared about finding us the right property. She went above and beyond.",
-      rating: 5,
-      type: "Buyer",
-      source: "Facebook",
-    },
-    {
-      name: "James T.",
-      location: "Cornwall, ON",
-      text: "Yuliya sold our home faster than we expected and at a great price. Her staging advice was spot-on and her marketing was excellent. She kept us informed every step of the way. A true professional!",
-      rating: 5,
-      type: "Seller",
-      source: "Facebook",
-    },
+    // {
+    //   name: "Andrei V.",
+    //   location: "St. Andrews West, ON",
+    //   text: "As a Russian-speaking family, we were so relieved to find a REALTOR® who could communicate with us in our language. Yuliya was patient, professional, and genuinely cared about finding us the right property. She went above and beyond.",
+    //   rating: 5,
+    //   type: "Buyer",
+    //   source: "Facebook",
+    // },
+    // {
+    //   name: "James T.",
+    //   location: "Cornwall, ON",
+    //   text: "Yuliya sold our home faster than we expected and at a great price. Her staging advice was spot-on and her marketing was excellent. She kept us informed every step of the way. A true professional!",
+    //   rating: 5,
+    //   type: "Seller",
+    //   source: "Facebook",
+    // },
     {
       name: "Olena P.",
       location: "Cornwall, ON",
@@ -701,7 +786,7 @@ function TestimonialsSection() {
         </div>
 
         {/* Testimonial grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
           {testimonials.map((t, i) => (
             <div
               key={t.name}
@@ -771,165 +856,658 @@ function TestimonialsSection() {
   );
 }
 
+// // ─── Mortgage Calculator Section ─────────────────────────────────────────────
+// function MortgageCalculator() {
+//   const [homePrice, setHomePrice] = useState(500000);
+//   const [downPayment, setDownPayment] = useState(100000);
+//   const [interestRate, setInterestRate] = useState(5.5);
+//   const [amortization, setAmortization] = useState(25);
+
+//   const principal = homePrice - downPayment;
+//   const monthlyRate = interestRate / 100 / 12;
+//   const numberOfPayments = amortization * 12;
+//   const monthlyPayment = monthlyRate === 0 
+//     ? principal / numberOfPayments 
+//     : (principal * (monthlyRate * Math.pow(1 + monthlyRate, numberOfPayments))) / (Math.pow(1 + monthlyRate, numberOfPayments) - 1);
+
+//   const downPaymentPercent = ((downPayment / homePrice) * 100).toFixed(1);
+//   const totalPaid = monthlyPayment * numberOfPayments;
+//   const totalInterest = totalPaid - principal;
+
+//   return (
+//     <section id="mortgage-calculator" className="py-24 bg-gradient-to-b from-[oklch(0.98_0.001_286.375)] to-[oklch(0.94_0.002_286.375)]">
+//       <div className="container">
+//         <div className="flex items-center gap-3 mb-4 justify-center">
+//           <div className="h-px w-10 bg-[oklch(0.42_0.1_155)]" />
+//           <span className="font-body text-sm font-semibold tracking-[0.2em] uppercase text-[oklch(0.42_0.1_155)]">
+//             Financial Planning
+//           </span>
+//           <div className="h-px w-10 bg-[oklch(0.42_0.1_155)]" />
+//         </div>
+//         <h2 className="font-display text-4xl md:text-5xl font-semibold text-center text-[oklch(0.22_0.04_240)] leading-tight mb-4">
+//           Mortgage Calculator
+//         </h2>
+//         <p className="font-body text-center text-[oklch(0.55_0.015_60)] max-w-2xl mx-auto mb-12">
+//           Estimate your monthly mortgage payments and see what's possible with your budget. This calculator provides estimates only — contact me for personalized financing advice.
+//         </p>
+
+//         <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
+//           {/* Input Controls */}
+//           <div className="space-y-8">
+//             {/* Home Price */}
+//             <div>
+//               <label className="font-body text-sm font-semibold text-[oklch(0.22_0.04_240)] mb-3 block">
+//                 Home Price: <span className="text-[oklch(0.42_0.1_155)] font-bold">${homePrice.toLocaleString()}</span>
+//               </label>
+//               <input
+//                 type="range"
+//                 min="50000"
+//                 max="2000000"
+//                 step="10000"
+//                 value={homePrice}
+//                 onChange={(e) => setHomePrice(Number(e.target.value))}
+//                 className="w-full h-2 bg-[oklch(0.88_0.015_80)] rounded-lg appearance-none cursor-pointer accent-[oklch(0.42_0.1_155)]"
+//               />
+//               <div className="flex justify-between font-body text-xs text-[oklch(0.55_0.015_60)] mt-2">
+//                 <span>$50K</span>
+//                 <span>$2M</span>
+//               </div>
+//             </div>
+
+//             {/* Down Payment */}
+//             <div>
+//               <label className="font-body text-sm font-semibold text-[oklch(0.22_0.04_240)] mb-3 block">
+//                 Down Payment: <span className="text-[oklch(0.42_0.1_155)] font-bold">${downPayment.toLocaleString()} ({downPaymentPercent}%)</span>
+//               </label>
+//               <input
+//                 type="range"
+//                 min="0"
+//                 max={homePrice * 0.5}
+//                 step="5000"
+//                 value={downPayment}
+//                 onChange={(e) => setDownPayment(Number(e.target.value))}
+//                 className="w-full h-2 bg-[oklch(0.88_0.015_80)] rounded-lg appearance-none cursor-pointer accent-[oklch(0.42_0.1_155)]"
+//               />
+//               <div className="flex justify-between font-body text-xs text-[oklch(0.55_0.015_60)] mt-2">
+//                 <span>$0</span>
+//                 <span>${(homePrice * 0.5).toLocaleString()}</span>
+//               </div>
+//             </div>
+
+//             {/* Interest Rate */}
+//             <div>
+//               <label className="font-body text-sm font-semibold text-[oklch(0.22_0.04_240)] mb-3 block">
+//                 Interest Rate: <span className="text-[oklch(0.42_0.1_155)] font-bold">{interestRate.toFixed(2)}%</span>
+//               </label>
+//               <input
+//                 type="range"
+//                 min="1"
+//                 max="12"
+//                 step="0.1"
+//                 value={interestRate}
+//                 onChange={(e) => setInterestRate(Number(e.target.value))}
+//                 className="w-full h-2 bg-[oklch(0.88_0.015_80)] rounded-lg appearance-none cursor-pointer accent-[oklch(0.42_0.1_155)]"
+//               />
+//               <div className="flex justify-between font-body text-xs text-[oklch(0.55_0.015_60)] mt-2">
+//                 <span>1%</span>
+//                 <span>12%</span>
+//               </div>
+//             </div>
+
+//             {/* Amortization */}
+//             <div>
+//               <label className="font-body text-sm font-semibold text-[oklch(0.22_0.04_240)] mb-3 block">
+//                 Amortization Period: <span className="text-[oklch(0.42_0.1_155)] font-bold">{amortization} years</span>
+//               </label>
+//               <input
+//                 type="range"
+//                 min="5"
+//                 max="40"
+//                 step="1"
+//                 value={amortization}
+//                 onChange={(e) => setAmortization(Number(e.target.value))}
+//                 className="w-full h-2 bg-[oklch(0.88_0.015_80)] rounded-lg appearance-none cursor-pointer accent-[oklch(0.42_0.1_155)]"
+//               />
+//               <div className="flex justify-between font-body text-xs text-[oklch(0.55_0.015_60)] mt-2">
+//                 <span>5 years</span>
+//                 <span>40 years</span>
+//               </div>
+//             </div>
+//           </div>
+
+//           {/* Results */}
+//           <div className="bg-white rounded-2xl p-8 shadow-lg border border-[oklch(0.88_0.015_80)]">
+//             <h3 className="font-display text-2xl font-semibold text-[oklch(0.22_0.04_240)] mb-8">Estimated Payment</h3>
+            
+//             <div className="space-y-6">
+//               {/* Monthly Payment */}
+//               <div className="bg-gradient-to-br from-[oklch(0.42_0.1_155/0.1)] to-[oklch(0.42_0.1_155/0.05)] rounded-xl p-6 border border-[oklch(0.42_0.1_155/0.2)]">
+//                 <p className="font-body text-sm text-[oklch(0.55_0.015_60)] mb-1">Monthly Payment</p>
+//                 <p className="font-display text-4xl font-bold text-[oklch(0.42_0.1_155)]">
+//                   ${monthlyPayment.toLocaleString('en-US', { maximumFractionDigits: 0 })}
+//                 </p>
+//               </div>
+
+//               {/* Breakdown */}
+//               <div className="space-y-4">
+//                 <div className="flex justify-between items-center border-b border-[oklch(0.88_0.015_80)] pb-3">
+//                   <span className="font-body text-sm text-[oklch(0.55_0.015_60)]">Mortgage Amount</span>
+//                   <span className="font-body font-semibold text-[oklch(0.22_0.04_240)]">${principal.toLocaleString()}</span>
+//                 </div>
+//                 <div className="flex justify-between items-center border-b border-[oklch(0.88_0.015_80)] pb-3">
+//                   <span className="font-body text-sm text-[oklch(0.55_0.015_60)]">Total Interest ({amortization}y)</span>
+//                   <span className="font-body font-semibold text-[oklch(0.22_0.04_240)]">${totalInterest.toLocaleString('en-US', { maximumFractionDigits: 0 })}</span>
+//                 </div>
+//                 <div className="flex justify-between items-center">
+//                   <span className="font-body text-sm text-[oklch(0.55_0.015_60)]">Total Amount Paid</span>
+//                   <span className="font-body font-semibold text-[oklch(0.22_0.04_240)]">${totalPaid.toLocaleString('en-US', { maximumFractionDigits: 0 })}</span>
+//                 </div>
+//               </div>
+
+//               {/* CTA */}
+//               <button
+//                 onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
+//                 className="w-full mt-6 bg-[oklch(0.42_0.1_155)] hover:bg-[oklch(0.36_0.1_155)] text-white font-body font-semibold py-3 rounded-lg transition-all duration-200 hover:shadow-lg"
+//               >
+//                 Get Pre-Approved
+//               </button>
+//             </div>
+
+//             <p className="font-body text-xs text-[oklch(0.65_0.01_80)] text-center mt-6">
+//               *Estimates are for informational purposes. Contact Yuliya for accurate financing details.
+//             </p>
+//           </div>
+//         </div>
+//       </div>
+//     </section>
+//   );
+// }
+
 // ─── Mortgage Calculator Section ─────────────────────────────────────────────
+
 function MortgageCalculator() {
+  useEffect(() => {
+    if (window.location.hash === "#mortgage-calculator") {
+      const calculatorSection = document.querySelector("#mortgage-calculator");
+
+      if (calculatorSection) {
+        setTimeout(() => {
+          calculatorSection.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }, 100);
+      }
+    }
+  }, []);
   const [homePrice, setHomePrice] = useState(500000);
   const [downPayment, setDownPayment] = useState(100000);
-  const [interestRate, setInterestRate] = useState(5.5);
+  const [interestRate, setInterestRate] = useState(4.5);
   const [amortization, setAmortization] = useState(25);
+  const [paymentFrequency, setPaymentFrequency] = useState<"monthly" | "biweekly">(
+    "monthly"
+  );
 
-  const principal = homePrice - downPayment;
-  const monthlyRate = interestRate / 100 / 12;
-  const numberOfPayments = amortization * 12;
-  const monthlyPayment = monthlyRate === 0 
-    ? principal / numberOfPayments 
-    : (principal * (monthlyRate * Math.pow(1 + monthlyRate, numberOfPayments))) / (Math.pow(1 + monthlyRate, numberOfPayments) - 1);
+  const [showOptionalCosts, setShowOptionalCosts] = useState(false);
 
-  const downPaymentPercent = ((downPayment / homePrice) * 100).toFixed(1);
-  const totalPaid = monthlyPayment * numberOfPayments;
-  const totalInterest = totalPaid - principal;
+  const [propertyTax, setPropertyTax] = useState(4000);
+  const [insurance, setInsurance] = useState(150);
+  const [condoFee, setCondoFee] = useState(0);
+  const [otherCosts, setOtherCosts] = useState(0);
+
+  // Prevent impossible values from entering the calculation.
+  const safeHomePrice = Math.max(0, homePrice);
+  const safeDownPayment = Math.min(
+    Math.max(0, downPayment),
+    safeHomePrice
+  );
+
+  const principal = Math.max(0, safeHomePrice - safeDownPayment);
+
+  const monthlyRate = Math.max(0, interestRate) / 100 / 12;
+  const numberOfMonthlyPayments = Math.max(1, amortization * 12);
+
+  // Standard mortgage payment formula.
+  const monthlyMortgagePayment =
+    principal === 0
+      ? 0
+      : monthlyRate === 0
+        ? principal / numberOfMonthlyPayments
+        : (principal *
+            (monthlyRate *
+              Math.pow(1 + monthlyRate, numberOfMonthlyPayments))) /
+          (Math.pow(1 + monthlyRate, numberOfMonthlyPayments) - 1);
+
+  // Convert the monthly mortgage payment into an approximate
+  // bi-weekly payment.
+  const mortgagePayment =
+    paymentFrequency === "biweekly"
+      ? (monthlyMortgagePayment * 12) / 26
+      : monthlyMortgagePayment;
+
+  const monthlyPropertyTax = Math.max(0, propertyTax) / 12;
+  const monthlyOptionalCosts =
+    monthlyPropertyTax +
+    Math.max(0, insurance) +
+    Math.max(0, condoFee) +
+    Math.max(0, otherCosts);
+
+  const totalMonthlyHousingCost =
+    mortgagePayment +
+    (paymentFrequency === "monthly" ? monthlyOptionalCosts : monthlyOptionalCosts);
+
+  const downPaymentPercent =
+    safeHomePrice > 0
+      ? ((safeDownPayment / safeHomePrice) * 100).toFixed(1)
+      : "0.0";
+
+  const totalMortgagePaid =
+    monthlyMortgagePayment * numberOfMonthlyPayments;
+
+  const totalInterest = Math.max(
+    0,
+    totalMortgagePaid - principal
+  );
+
+  const formatCurrency = (value: number) =>
+    value.toLocaleString("en-CA", {
+      style: "currency",
+      currency: "CAD",
+      maximumFractionDigits: 0,
+    });
+
+  const handleHomePriceChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const value = Math.max(0, Number(e.target.value));
+    setHomePrice(value);
+
+    // Prevent down payment from exceeding the new home price.
+    if (downPayment > value) {
+      setDownPayment(value);
+    }
+  };
+
+  const handleDownPaymentChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const value = Math.max(
+      0,
+      Math.min(Number(e.target.value), safeHomePrice)
+    );
+
+    setDownPayment(value);
+  };
 
   return (
-    <section id="mortgage-calculator" className="py-24 bg-gradient-to-b from-[oklch(0.98_0.001_286.375)] to-[oklch(0.94_0.002_286.375)]">
+    <section
+      id="mortgage-calculator"
+      className="py-20 md:py-24 bg-[oklch(0.97_0.012_80)]"
+    >
       <div className="container">
-        <div className="flex items-center gap-3 mb-4 justify-center">
-          <div className="h-px w-10 bg-[oklch(0.42_0.1_155)]" />
-          <span className="font-body text-sm font-semibold tracking-[0.2em] uppercase text-[oklch(0.42_0.1_155)]">
-            Financial Planning
-          </span>
-          <div className="h-px w-10 bg-[oklch(0.42_0.1_155)]" />
-        </div>
-        <h2 className="font-display text-4xl md:text-5xl font-semibold text-center text-[oklch(0.22_0.04_240)] leading-tight mb-4">
-          Mortgage Calculator
-        </h2>
-        <p className="font-body text-center text-[oklch(0.55_0.015_60)] max-w-2xl mx-auto mb-12">
-          Estimate your monthly mortgage payments and see what's possible with your budget. This calculator provides estimates only — contact me for personalized financing advice.
-        </p>
+        {/* Section Heading */}
+        <div className="text-center mb-12 md:mb-14">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <div className="h-px w-10 bg-[oklch(0.42_0.1_155)]" />
 
-        <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
-          {/* Input Controls */}
-          <div className="space-y-8">
-            {/* Home Price */}
-            <div>
-              <label className="font-body text-sm font-semibold text-[oklch(0.22_0.04_240)] mb-3 block">
-                Home Price: <span className="text-[oklch(0.42_0.1_155)] font-bold">${homePrice.toLocaleString()}</span>
-              </label>
-              <input
-                type="range"
-                min="50000"
-                max="2000000"
-                step="10000"
-                value={homePrice}
-                onChange={(e) => setHomePrice(Number(e.target.value))}
-                className="w-full h-2 bg-[oklch(0.88_0.015_80)] rounded-lg appearance-none cursor-pointer accent-[oklch(0.42_0.1_155)]"
-              />
-              <div className="flex justify-between font-body text-xs text-[oklch(0.55_0.015_60)] mt-2">
-                <span>$50K</span>
-                <span>$2M</span>
-              </div>
-            </div>
+            <span className="font-body text-sm font-semibold tracking-[0.2em] uppercase text-[oklch(0.42_0.1_155)]">
+              Financial Planning
+            </span>
 
-            {/* Down Payment */}
-            <div>
-              <label className="font-body text-sm font-semibold text-[oklch(0.22_0.04_240)] mb-3 block">
-                Down Payment: <span className="text-[oklch(0.42_0.1_155)] font-bold">${downPayment.toLocaleString()} ({downPaymentPercent}%)</span>
-              </label>
-              <input
-                type="range"
-                min="0"
-                max={homePrice * 0.5}
-                step="5000"
-                value={downPayment}
-                onChange={(e) => setDownPayment(Number(e.target.value))}
-                className="w-full h-2 bg-[oklch(0.88_0.015_80)] rounded-lg appearance-none cursor-pointer accent-[oklch(0.42_0.1_155)]"
-              />
-              <div className="flex justify-between font-body text-xs text-[oklch(0.55_0.015_60)] mt-2">
-                <span>$0</span>
-                <span>${(homePrice * 0.5).toLocaleString()}</span>
-              </div>
-            </div>
-
-            {/* Interest Rate */}
-            <div>
-              <label className="font-body text-sm font-semibold text-[oklch(0.22_0.04_240)] mb-3 block">
-                Interest Rate: <span className="text-[oklch(0.42_0.1_155)] font-bold">{interestRate.toFixed(2)}%</span>
-              </label>
-              <input
-                type="range"
-                min="1"
-                max="12"
-                step="0.1"
-                value={interestRate}
-                onChange={(e) => setInterestRate(Number(e.target.value))}
-                className="w-full h-2 bg-[oklch(0.88_0.015_80)] rounded-lg appearance-none cursor-pointer accent-[oklch(0.42_0.1_155)]"
-              />
-              <div className="flex justify-between font-body text-xs text-[oklch(0.55_0.015_60)] mt-2">
-                <span>1%</span>
-                <span>12%</span>
-              </div>
-            </div>
-
-            {/* Amortization */}
-            <div>
-              <label className="font-body text-sm font-semibold text-[oklch(0.22_0.04_240)] mb-3 block">
-                Amortization Period: <span className="text-[oklch(0.42_0.1_155)] font-bold">{amortization} years</span>
-              </label>
-              <input
-                type="range"
-                min="5"
-                max="40"
-                step="1"
-                value={amortization}
-                onChange={(e) => setAmortization(Number(e.target.value))}
-                className="w-full h-2 bg-[oklch(0.88_0.015_80)] rounded-lg appearance-none cursor-pointer accent-[oklch(0.42_0.1_155)]"
-              />
-              <div className="flex justify-between font-body text-xs text-[oklch(0.55_0.015_60)] mt-2">
-                <span>5 years</span>
-                <span>40 years</span>
-              </div>
-            </div>
+            <div className="h-px w-10 bg-[oklch(0.42_0.1_155)]" />
           </div>
 
-          {/* Results */}
-          <div className="bg-white rounded-2xl p-8 shadow-lg border border-[oklch(0.88_0.015_80)]">
-            <h3 className="font-display text-2xl font-semibold text-[oklch(0.22_0.04_240)] mb-8">Estimated Payment</h3>
-            
-            <div className="space-y-6">
-              {/* Monthly Payment */}
-              <div className="bg-gradient-to-br from-[oklch(0.42_0.1_155/0.1)] to-[oklch(0.42_0.1_155/0.05)] rounded-xl p-6 border border-[oklch(0.42_0.1_155/0.2)]">
-                <p className="font-body text-sm text-[oklch(0.55_0.015_60)] mb-1">Monthly Payment</p>
-                <p className="font-display text-4xl font-bold text-[oklch(0.42_0.1_155)]">
-                  ${monthlyPayment.toLocaleString('en-US', { maximumFractionDigits: 0 })}
-                </p>
+          <h2 className="font-display text-4xl md:text-5xl font-semibold text-[oklch(0.22_0.04_240)]">
+            Financing Your Next Home
+          </h2>
+
+          <p className="font-body text-base md:text-lg text-[oklch(0.42_0.02_80)] mt-4 max-w-2xl mx-auto leading-relaxed">
+            Understanding your budget is an important first step. Use this
+            calculator to get an estimate of your monthly housing costs.
+          </p>
+        </div>
+
+        {/* Calculator */}
+        <div className="max-w-4xl mx-auto bg-white border border-[oklch(0.88_0.015_80)] shadow-sm">
+          <div className="p-6 md:p-8 lg:p-10">
+
+            <h3 className="font-display text-2xl md:text-3xl font-semibold text-[oklch(0.22_0.04_240)] mb-8">
+              Mortgage Payment Calculator
+            </h3>
+
+            {/* Main Fields */}
+            <div className="grid sm:grid-cols-2 gap-6">
+
+              {/* Home Price */}
+              <div>
+                <label
+                  htmlFor="home-price"
+                  className="block font-body text-sm font-semibold text-[oklch(0.22_0.04_240)] mb-2"
+                >
+                  Home Price
+                </label>
+
+                <input
+                  id="home-price"
+                  type="number"
+                  min="0"
+                  step="1000"
+                  value={homePrice}
+                  onChange={handleHomePriceChange}
+                  className="w-full border border-[oklch(0.82_0.015_80)] px-4 py-3 font-body text-[oklch(0.22_0.04_240)] outline-none focus:border-[oklch(0.42_0.1_155)] focus:ring-1 focus:ring-[oklch(0.42_0.1_155)]"
+                  placeholder="500000"
+                />
               </div>
 
-              {/* Breakdown */}
-              <div className="space-y-4">
-                <div className="flex justify-between items-center border-b border-[oklch(0.88_0.015_80)] pb-3">
-                  <span className="font-body text-sm text-[oklch(0.55_0.015_60)]">Mortgage Amount</span>
-                  <span className="font-body font-semibold text-[oklch(0.22_0.04_240)]">${principal.toLocaleString()}</span>
-                </div>
-                <div className="flex justify-between items-center border-b border-[oklch(0.88_0.015_80)] pb-3">
-                  <span className="font-body text-sm text-[oklch(0.55_0.015_60)]">Total Interest ({amortization}y)</span>
-                  <span className="font-body font-semibold text-[oklch(0.22_0.04_240)]">${totalInterest.toLocaleString('en-US', { maximumFractionDigits: 0 })}</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="font-body text-sm text-[oklch(0.55_0.015_60)]">Total Amount Paid</span>
-                  <span className="font-body font-semibold text-[oklch(0.22_0.04_240)]">${totalPaid.toLocaleString('en-US', { maximumFractionDigits: 0 })}</span>
-                </div>
+              {/* Down Payment */}
+              <div>
+                <label
+                  htmlFor="down-payment"
+                  className="block font-body text-sm font-semibold text-[oklch(0.22_0.04_240)] mb-2"
+                >
+                  Down Payment
+                  <span className="ml-2 font-normal text-[oklch(0.42_0.1_155)]">
+                    ({downPaymentPercent}%)
+                  </span>
+                </label>
+
+                <input
+                  id="down-payment"
+                  type="number"
+                  min="0"
+                  max={safeHomePrice}
+                  step="1000"
+                  value={downPayment}
+                  onChange={handleDownPaymentChange}
+                  className="w-full border border-[oklch(0.82_0.015_80)] px-4 py-3 font-body text-[oklch(0.22_0.04_240)] outline-none focus:border-[oklch(0.42_0.1_155)] focus:ring-1 focus:ring-[oklch(0.42_0.1_155)]"
+                  placeholder="100000"
+                />
               </div>
 
-              {/* CTA */}
-              <button
-                onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-                className="w-full mt-6 bg-[oklch(0.42_0.1_155)] hover:bg-[oklch(0.36_0.1_155)] text-white font-body font-semibold py-3 rounded-lg transition-all duration-200 hover:shadow-lg"
-              >
-                Get Pre-Approved
-              </button>
+              {/* Interest Rate */}
+              <div>
+                <label
+                  htmlFor="interest-rate"
+                  className="block font-body text-sm font-semibold text-[oklch(0.22_0.04_240)] mb-2"
+                >
+                  Interest Rate (%)
+                </label>
+
+                <input
+                  id="interest-rate"
+                  type="number"
+                  min="0"
+                  max="100"
+                  step="0.01"
+                  value={interestRate}
+                  onChange={(e) =>
+                    setInterestRate(Math.max(0, Number(e.target.value)))
+                  }
+                  className="w-full border border-[oklch(0.82_0.015_80)] px-4 py-3 font-body text-[oklch(0.22_0.04_240)] outline-none focus:border-[oklch(0.42_0.1_155)] focus:ring-1 focus:ring-[oklch(0.42_0.1_155)]"
+                  placeholder="4.5"
+                />
+              </div>
+
+              {/* Amortization */}
+              <div>
+                <label
+                  htmlFor="amortization"
+                  className="block font-body text-sm font-semibold text-[oklch(0.22_0.04_240)] mb-2"
+                >
+                  Amortization Period
+                </label>
+
+                <select
+                  id="amortization"
+                  value={amortization}
+                  onChange={(e) =>
+                    setAmortization(Number(e.target.value))
+                  }
+                  className="w-full border border-[oklch(0.82_0.015_80)] px-4 py-3 font-body text-[oklch(0.22_0.04_240)] bg-white outline-none focus:border-[oklch(0.42_0.1_155)] focus:ring-1 focus:ring-[oklch(0.42_0.1_155)]"
+                >
+                  <option value={20}>20 years</option>
+                  <option value={25}>25 years</option>
+                  <option value={30}>30 years</option>
+                </select>
+              </div>
+
+              {/* Payment Frequency */}
+              <div className="sm:col-span-2">
+                <label
+                  htmlFor="payment-frequency"
+                  className="block font-body text-sm font-semibold text-[oklch(0.22_0.04_240)] mb-2"
+                >
+                  Payment Frequency
+                </label>
+
+                <select
+                  id="payment-frequency"
+                  value={paymentFrequency}
+                  onChange={(e) =>
+                    setPaymentFrequency(
+                      e.target.value as "monthly" | "biweekly"
+                    )
+                  }
+                  className="w-full border border-[oklch(0.82_0.015_80)] px-4 py-3 font-body text-[oklch(0.22_0.04_240)] bg-white outline-none focus:border-[oklch(0.42_0.1_155)] focus:ring-1 focus:ring-[oklch(0.42_0.1_155)]"
+                >
+                  <option value="monthly">Monthly</option>
+                  <option value="biweekly">Bi-weekly</option>
+                </select>
+              </div>
             </div>
 
-            <p className="font-body text-xs text-[oklch(0.65_0.01_80)] text-center mt-6">
-              *Estimates are for informational purposes. Contact Yuliya for accurate financing details.
+            {/* Optional Costs Toggle */}
+            <button
+              type="button"
+              onClick={() => setShowOptionalCosts(!showOptionalCosts)}
+              aria-expanded={showOptionalCosts}
+              className="mt-8 font-body text-sm font-semibold text-[oklch(0.42_0.1_155)] hover:text-[oklch(0.36_0.1_155)] transition-colors"
+            >
+              {showOptionalCosts ? "− Hide" : "+ Add"} property taxes & other
+              costs
+            </button>
+
+            {/* Optional Costs */}
+            {showOptionalCosts && (
+              <div className="mt-5 pt-6 border-t border-[oklch(0.88_0.015_80)]">
+                <div className="grid sm:grid-cols-2 gap-6">
+
+                  {/* Property Tax */}
+                  <div>
+                    <label
+                      htmlFor="property-tax"
+                      className="block font-body text-sm font-semibold text-[oklch(0.22_0.04_240)] mb-2"
+                    >
+                      Annual Property Tax
+                    </label>
+
+                    <input
+                      id="property-tax"
+                      type="number"
+                      min="0"
+                      step="100"
+                      value={propertyTax}
+                      onChange={(e) =>
+                        setPropertyTax(Math.max(0, Number(e.target.value)))
+                      }
+                      className="w-full border border-[oklch(0.82_0.015_80)] px-4 py-3 font-body outline-none focus:border-[oklch(0.42_0.1_155)] focus:ring-1 focus:ring-[oklch(0.42_0.1_155)]"
+                      placeholder="4000"
+                    />
+                  </div>
+
+                  {/* Insurance */}
+                  <div>
+                    <label
+                      htmlFor="insurance"
+                      className="block font-body text-sm font-semibold text-[oklch(0.22_0.04_240)] mb-2"
+                    >
+                      Monthly Home Insurance
+                    </label>
+
+                    <input
+                      id="insurance"
+                      type="number"
+                      min="0"
+                      step="10"
+                      value={insurance}
+                      onChange={(e) =>
+                        setInsurance(Math.max(0, Number(e.target.value)))
+                      }
+                      className="w-full border border-[oklch(0.82_0.015_80)] px-4 py-3 font-body outline-none focus:border-[oklch(0.42_0.1_155)] focus:ring-1 focus:ring-[oklch(0.42_0.1_155)]"
+                      placeholder="150"
+                    />
+                  </div>
+
+                  {/* Condo Fee */}
+                  <div>
+                    <label
+                      htmlFor="condo-fee"
+                      className="block font-body text-sm font-semibold text-[oklch(0.22_0.04_240)] mb-2"
+                    >
+                      Monthly Condo Fee
+                    </label>
+
+                    <input
+                      id="condo-fee"
+                      type="number"
+                      min="0"
+                      step="10"
+                      value={condoFee}
+                      onChange={(e) =>
+                        setCondoFee(Math.max(0, Number(e.target.value)))
+                      }
+                      className="w-full border border-[oklch(0.82_0.015_80)] px-4 py-3 font-body outline-none focus:border-[oklch(0.42_0.1_155)] focus:ring-1 focus:ring-[oklch(0.42_0.1_155)]"
+                      placeholder="0"
+                    />
+                  </div>
+
+                  {/* Other Costs */}
+                  <div>
+                    <label
+                      htmlFor="other-costs"
+                      className="block font-body text-sm font-semibold text-[oklch(0.22_0.04_240)] mb-2"
+                    >
+                      Other Monthly Costs
+                    </label>
+
+                    <input
+                      id="other-costs"
+                      type="number"
+                      min="0"
+                      step="10"
+                      value={otherCosts}
+                      onChange={(e) =>
+                        setOtherCosts(Math.max(0, Number(e.target.value)))
+                      }
+                      className="w-full border border-[oklch(0.82_0.015_80)] px-4 py-3 font-body outline-none focus:border-[oklch(0.42_0.1_155)] focus:ring-1 focus:ring-[oklch(0.42_0.1_155)]"
+                      placeholder="0"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Result */}
+            <div className="mt-8 bg-[oklch(0.42_0.1_155)] p-6 md:p-8 text-white">
+              <p className="font-body text-sm text-white/80 mb-2">
+                Estimated Monthly Housing Cost
+              </p>
+
+              <strong className="block font-display text-4xl md:text-5xl font-semibold">
+                {formatCurrency(totalMonthlyHousingCost)}
+              </strong>
+
+              <span className="block font-body text-xs text-white/70 mt-3">
+                {paymentFrequency === "monthly"
+                  ? "Based on monthly mortgage payments"
+                  : "Mortgage payment shown on a bi-weekly basis"}
+                {showOptionalCosts &&
+                  " and the additional costs entered above"}
+                .
+              </span>
+            </div>
+
+            {/* Breakdown */}
+            <div className="mt-6 space-y-3">
+              <div className="flex justify-between gap-4 py-2 border-b border-[oklch(0.88_0.015_80)]">
+                <span className="font-body text-sm text-[oklch(0.55_0.015_60)]">
+                  Mortgage Amount
+                </span>
+
+                <span className="font-body text-sm font-semibold text-[oklch(0.22_0.04_240)]">
+                  {formatCurrency(principal)}
+                </span>
+              </div>
+
+              <div className="flex justify-between gap-4 py-2 border-b border-[oklch(0.88_0.015_80)]">
+                <span className="font-body text-sm text-[oklch(0.55_0.015_60)]">
+                  Total Interest ({amortization} years)
+                </span>
+
+                <span className="font-body text-sm font-semibold text-[oklch(0.22_0.04_240)]">
+                  {formatCurrency(totalInterest)}
+                </span>
+              </div>
+
+              {showOptionalCosts && (
+                <>
+                  <div className="flex justify-between gap-4 py-2 border-b border-[oklch(0.88_0.015_80)]">
+                    <span className="font-body text-sm text-[oklch(0.55_0.015_60)]">
+                      Property Tax
+                    </span>
+
+                    <span className="font-body text-sm font-semibold text-[oklch(0.22_0.04_240)]">
+                      {formatCurrency(monthlyPropertyTax)} / month
+                    </span>
+                  </div>
+
+                  <div className="flex justify-between gap-4 py-2 border-b border-[oklch(0.88_0.015_80)]">
+                    <span className="font-body text-sm text-[oklch(0.55_0.015_60)]">
+                      Other Monthly Costs
+                    </span>
+
+                    <span className="font-body text-sm font-semibold text-[oklch(0.22_0.04_240)]">
+                      {formatCurrency(
+                        Math.max(0, insurance) +
+                          Math.max(0, condoFee) +
+                          Math.max(0, otherCosts)
+                      )}
+                    </span>
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* CTA */}
+            <button
+              type="button"
+              onClick={() =>
+                document
+                  .querySelector("#contact")
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
+              className="w-full mt-8 bg-[oklch(0.42_0.1_155)] hover:bg-[oklch(0.36_0.1_155)] text-white font-body font-semibold py-3.5 rounded transition-all duration-200 hover:shadow-lg flex items-center justify-center gap-2"
+            >
+              Get Pre-Approved
+              <ArrowRight size={17} />
+            </button>
+
+            {/* External Calculator */}
+            <a
+              href="https://www.realtor.ca/calculator#v=payment"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-center mt-5 font-body text-sm text-[oklch(0.42_0.1_155)] hover:underline"
+            >
+              Open Realtor.ca Mortgage Calculator →
+            </a>
+
+            {/* Disclaimer */}
+            <p className="font-body text-xs text-[oklch(0.60_0.01_80)] text-center mt-6 leading-relaxed">
+              Estimates are for planning purposes only and may not reflect
+              actual mortgage rates, insurance requirements, taxes, fees, or
+              lending conditions. Contact Yuliya for personalized financing
+              information.
             </p>
           </div>
         </div>
@@ -937,9 +1515,22 @@ function MortgageCalculator() {
     </section>
   );
 }
-
 // ─── Contact Form Section ─────────────────────────────────────────────────────
 function ContactSection() {
+  useEffect(() => {
+    if (window.location.hash === "#contact") {
+      const contactSection = document.querySelector("#contact");
+
+      if (contactSection) {
+        setTimeout(() => {
+          contactSection.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }, 100);
+      }
+    }
+  }, []);
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -1310,7 +1901,8 @@ export default function Home() {
       <HeroSection />
       <AboutSection />
       <ServicesSection />
-      <ListingsSection />
+      {/* <ListingsSection /> */}
+      <ExitTeamSection/>
       <TestimonialsSection />
       <MortgageCalculator />
       <ContactSection />
