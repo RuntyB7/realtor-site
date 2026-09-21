@@ -319,7 +319,7 @@ function AboutSection() {
                 My interest in real estate began when I purchased my first home — a project that ignited my passion for home design, staging, and transformation. Today, I combine my real estate expertise with my design sense to help clients envision the full potential of every property. Originally from abroad, my husband and I immigrated to Canada in 2007. I chose a career in real estate out of passion, not necessity.
               </p>
             </div>
-            {/* Google Rating Badge */}
+            {/* Google Rating Badge
             <div className="mt-6 inline-flex items-center gap-3 bg-white border border-[oklch(0.88_0.015_80)] rounded-xl px-5 py-3 shadow-sm">
               <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none">
                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
@@ -334,7 +334,7 @@ function AboutSection() {
                 </div>
                 <div className="font-body text-xs text-[oklch(0.55_0.015_60)]">2 Google Reviews · EXIT Realty Seaway</div>
               </div>
-            </div>
+            </div> */}
 
             {/* Credentials */}
             <div className="mt-8 grid grid-cols-2 gap-4">
@@ -408,7 +408,7 @@ function ServicesSection() {
     {
       title: "Selling your Home",
       description:
-        "From preparing your property to marketing and negotiating, I'll help you present your home in its best light. With my background in home design and staging, I help you present your property at its absolute best. From pricing strategy to marketing and negotiation, I work to get you the best possible outcome.",
+        "Selling your home requires a blend of strategy and presentation. I handle the entire process for you - from pricing and marketing to final negotiations. With my expertise in home design and staging, I will personally ensure your property looks its absolute best to maximize your return.",
       features: [
         "Free Home Evaluation",
         "Professional Staging Tips",
@@ -706,6 +706,74 @@ function ExitTeamSection() {
   );
 }
 // ─── Social Proof / Testimonials ──────────────────────────────────────────────
+
+// function ReviewText({ text }: { text: string }) {
+//   const [expanded, setExpanded] = useState(false);
+
+//   const isLong = text.length > 300;
+
+//   return (
+//     <div className="mb-6">
+//       <p
+//         className={`font-body text-base text-[oklch(0.35_0.02_240)] leading-relaxed italic ${
+//           !expanded && isLong ? "line-clamp-4" : ""
+//         }`}
+//       >
+//         "{text}"
+//       </p>
+
+//       {isLong && (
+//         <button
+//           type="button"
+//           onClick={() => setExpanded((prev) => !prev)}
+//           className="mt-2 font-body text-sm font-semibold text-[oklch(0.42_0.1_155)] hover:underline underline-offset-4 transition-all"
+//         >
+//           {expanded ? "Show less" : "Show more"}
+//         </button>
+//       )}
+//     </div>
+//   );
+// }
+function ReviewText({ text }: { text: string }) {
+  const [expanded, setExpanded] = useState(false);
+
+  const isLong = text.length > 300;
+
+  return (
+    <div className="mb-6">
+      <div
+        className={`overflow-hidden transition-[max-height] duration-800 ease-in-out ${
+          isLong && !expanded
+            ? "max-h-[7.5rem]"
+            : "max-h-[1000px]"
+        }`}
+      >
+        <p className="font-body text-base text-[oklch(0.35_0.02_240)] leading-relaxed italic">
+          "{text}"
+        </p>
+      </div>
+
+      {isLong && (
+        <button
+          type="button"
+          onClick={() => setExpanded((prev) => !prev)}
+          className="mt-2 inline-flex items-center gap-1 font-body text-sm font-semibold text-[oklch(0.42_0.1_155)] hover:text-[oklch(0.32_0.08_155)] transition-colors"
+        >
+          {expanded ? "Show less" : "Show more"}
+
+          <span
+            className={`transition-transform duration-300 ${
+              expanded ? "rotate-180" : ""
+            }`}
+          >
+            ↓
+          </span>
+        </button>
+      )}
+    </div>
+  );
+}
+
 function TestimonialsSection() {
   useEffect(() => {
     if (window.location.hash === "#testimonials") {
@@ -731,6 +799,7 @@ function TestimonialsSection() {
       type: "Buyer",
       source: "Google Review",
     },
+    // OUTDATED
     // {
     //   name: "Andrei V.",
     //   location: "St. Andrews West, ON",
@@ -747,15 +816,23 @@ function TestimonialsSection() {
     //   type: "Seller",
     //   source: "Facebook",
     // },
+    // OUTDATED (09-20-2026)
+    // {
+    //   name: "Olena P.",
+    //   location: "Cornwall, ON",
+    //   text: "I was looking for a home in the heart of Cornwall with easy access to everything. Yuliya understood exactly what I needed and found me the perfect home close to everyday amenities as well as elementary school for my daughter. She knows the city neighbourhoods inside and out. Couldn't be happier!",
+    //   rating: 5,
+    //   type: "Buyer",
+    //   source: "Facebook",
+    // },
     {
-      name: "Olena P.",
-      location: "Cornwall, ON",
-      text: "I was looking for a home in the heart of Cornwall with easy access to everything. Yuliya understood exactly what I needed and found me the perfect home close to everyday amenities as well as elementary school for my daughter. She knows the city neighbourhoods inside and out. Couldn't be happier!",
+      name: "Mathieu & Sam",
+      location: "Cornwall ON",
+      text: "From the very beginning, she was incredibly patient, kind, and supportive throughout our home search. We spent months with her roaming all around the Ottawa area, looking at house after house - including some truly horrifying ones! Through it all, Yuliya never gave up and never stopped looking until we found the right home for us. One of the things we appreciated most was her honesty. She never tried to simply sell us a house or push us toward a purchase. She gave us her genuine, unbiased feedback and always had our best interests in mind. That honesty was incredibly important to us when choosing a realtor, and Yuliya delivered every step of the way. We absolutely love our new home, and we’re so grateful that Yuliya was the person who helped us find it. If you’re looking for a realtor who will truly listen, be honest with you, and stick with you until you find the right home, we wholeheartedly recommend Yuliya!",
       rating: 5,
       type: "Buyer",
-      source: "Facebook",
+      source: "Google Review"
     },
-
 
     {
       name: "Juliet DM",
@@ -786,7 +863,7 @@ function TestimonialsSection() {
         </div>
 
         {/* Testimonial grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 items-start">
           {testimonials.map((t, i) => (
             <div
               key={t.name}
@@ -803,9 +880,11 @@ function TestimonialsSection() {
               </div>
 
               {/* Text */}
-              <p className="font-body text-base text-[oklch(0.35_0.02_240)] leading-relaxed mb-6 italic">
+              {/* <p className="font-body text-base text-[oklch(0.35_0.02_240)] leading-relaxed mb-6 italic">
                 "{t.text}"
-              </p>
+              </p> */}
+
+              <ReviewText text={t.text}/>
 
               {/* Author */}
               <div className="flex items-center justify-between border-t border-[oklch(0.88_0.015_80)] pt-4">

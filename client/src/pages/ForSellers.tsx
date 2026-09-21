@@ -271,9 +271,9 @@ function SellingPage() {
     },
     {
       number: "03",
-      title: "Prepare Your Home",
+      title: "Prepare Your Home for Sale",
       description:
-        "We focus on the improvements that can make your home clean, inviting, and market-ready.",
+        "Simple improvements, staging ideas and real projects that can help your home show at its best.",
     },
     {
       number: "04",
@@ -357,14 +357,14 @@ function SellingPage() {
             </div>
 
             <h1 className="font-display text-5xl md:text-7xl font-semibold leading-[1.05] text-white">
-              Selling Your
-              <br />
+              Selling Your Home.
+              {/* <br />
               <em className="italic text-[oklch(0.72_0.12_75)]">
                 Home.
-              </em>
+              </em> */}
             </h1>
 
-            <p className="font-display text-2xl md:text-3xl text-white/90 mt-6">
+            <p className="font-display text-2xl md:text-3xl text-[oklch(0.72_0.12_75)] mt-6">
               A simple, effective plan from preparation to closing day.
             </p>
 
@@ -385,13 +385,13 @@ function SellingPage() {
                 Download Seller Guide
               </a>
 
-              <button
+              {/* <button
                 onClick={goToContact}
                 className="inline-flex items-center gap-2 border border-white/50 hover:border-white text-white font-body font-semibold px-7 py-3.5 rounded transition-all duration-200 hover:bg-white/10"
               >
                 Let's Talk
                 <ArrowRight size={18} />
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
@@ -448,11 +448,12 @@ function SellingPage() {
                   {step.number}
                 </span>
 
-                <h3 className="font-display text-2xl font-semibold mt-2 mb-3">
+                <h3 className="font-display text-3xl font-semibold mt-2 mb-3">
                   {step.title}
                 </h3>
 
-                <p className="font-body text-sm text-[oklch(0.55_0.015_60)] leading-relaxed">
+                <p className="font-body
+                 text-[oklch(0.75_0.015_60)] leading-relaxed">
                   {step.description}
                 </p>
 
