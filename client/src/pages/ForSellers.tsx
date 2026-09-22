@@ -1,4 +1,4 @@
-import { X, Menu, Mail, MapPin, Phone } from "lucide-react";
+import { X, Menu, Mail, MapPin, Phone, ArrowLeft } from "lucide-react";
 import { useState, useEffect } from "react";
 
 function Navbar() {
@@ -252,6 +252,8 @@ function Footer() {
 }
 
 import { ArrowRight, Check, Download, Home, MessageCircle } from "lucide-react";
+import { navigate } from "wouter/use-browser-location";
+import { useLocation } from "wouter";
 
 // ─── Selling Your Home Page ──────────────────────────────────────────────────
 
@@ -333,6 +335,10 @@ function SellingPage() {
   const goToContact = () => {
     window.location.href = "/#contact";
   };
+  const [, setLocation] = useLocation(); 
+  const returnHome = () => {
+    setLocation("/");
+  }
 
   return (
     <div className="min-h-screen bg-[oklch(0.97_0.012_80)] text-[oklch(0.22_0.04_240)]">
@@ -375,6 +381,13 @@ function SellingPage() {
             </p>
 
             <div className="flex flex-wrap gap-4 mt-9">
+              <button
+                onClick={returnHome}
+                className="inline-flex items-center gap-2 border border-white/50 hover:border-white text-white font-body font-semibold px-7 py-3.5 rounded transition-all duration-200 hover:bg-white/10"
+              >
+                <ArrowLeft size={18} />
+                Return Home
+              </button>
               <a
                 href="/documents/Seller-Guide-2026-Yuliya.pdf"
                 target="_blank"
@@ -384,14 +397,6 @@ function SellingPage() {
                 <Download size={18} />
                 Download Seller Guide
               </a>
-
-              {/* <button
-                onClick={goToContact}
-                className="inline-flex items-center gap-2 border border-white/50 hover:border-white text-white font-body font-semibold px-7 py-3.5 rounded transition-all duration-200 hover:bg-white/10"
-              >
-                Let's Talk
-                <ArrowRight size={18} />
-              </button> */}
             </div>
           </div>
         </div>
