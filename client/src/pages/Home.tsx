@@ -1624,17 +1624,79 @@ function ContactSection() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   if (!form.firstName || !form.email || !form.message) {
+  //     toast.error("Please fill in all required fields.");
+  //     return;
+  //   }
+  //   setSubmitting(true);
+  //   await new Promise((r) => setTimeout(r, 1200));
+  //   setSubmitting(false);
+  //   toast.success("Thank you! Yuliya will be in touch with you shortly.");
+  //   setForm({ firstName: "", lastName: "", email: "", phone: "", interest: "", message: "" });
+  // };
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
     if (!form.firstName || !form.email || !form.message) {
       toast.error("Please fill in all required fields.");
       return;
     }
+
     setSubmitting(true);
-    await new Promise((r) => setTimeout(r, 1200));
+
+    const recipient = "yuliya@exitrealtyseaway.com";
+
+    const subject = `Website Inquiry from ${form.firstName}${
+      form.lastName ? ` ${form.lastName}` : ""
+    }`;
+
+    const body = [
+      `Name: ${form.firstName}${form.lastName ? ` ${form.lastName}` : ""}`,
+      `Email: ${form.email}`,
+      `Phone: ${form.phone || "Not provided"}`,
+      `Interested In: ${
+        form.interest
+          ? form.interest === "buying"
+            ? "Buying a Home"
+            : form.interest === "selling"
+              ? "Selling My Home"
+              : form.interest === "land"
+                ? "Rural / Land Property"
+                : form.interest === "evaluation"
+                  ? "Free Home Evaluation"
+                  : form.interest === "rental"
+                    ? "Rental Property"
+                    : "General Inquiry"
+          : "Not specified"
+      }`,
+      "",
+      "Message:",
+      form.message,
+    ].join("\n");
+
+    const mailtoUrl =
+      `mailto:${recipient}` +
+      `?subject=${encodeURIComponent(subject)}` +
+      `&body=${encodeURIComponent(body)}`;
+
+    window.location.href = mailtoUrl;
+
     setSubmitting(false);
-    toast.success("Thank you! Yuliya will be in touch with you shortly.");
-    setForm({ firstName: "", lastName: "", email: "", phone: "", interest: "", message: "" });
+
+    toast.success(
+      "Message prepared! Your email client has been opened with your inquiry addressed to Yuliya."
+    );
+
+    setForm({
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      interest: "",
+      message: "",
+    });
   };
 
   return (
@@ -1835,7 +1897,7 @@ function ContactSection() {
                 {submitting ? (
                   <>
                     <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    Sending...
+                    Opening Email...
                   </>
                 ) : (
                   <>
